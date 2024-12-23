@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-        function sumOfnestedary (ary) {
-            return ary.reduce((sum, item)=>{
-                if(Array.isArray(item)) {
+        function sumOfnestedary(ary) {
+            return ary.reduce((sum, item) => {
+                if (Array.isArray(item)) {
                     return sum + sumOfnestedary(item);
                 }
-                return 
-            })
+                return sum + item
+            });
         }
+
+        array = [3, 4, 5, 6, [3, 6, 8, 9, [2, 8, 6, 5, 4]]]
+
+        console.log(array)
     </script>
 </body>
-</html> 
+
+</html>
