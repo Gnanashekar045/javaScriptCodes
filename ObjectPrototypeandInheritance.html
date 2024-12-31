@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Methods and Merging</title>
+</head>
+
+<body>
+    <script>
+        var person = {
+            firstName: "Gnana",
+            lastName: "Shekar",
+            age: 30,
+            city: "Bangalore"
+        };
+
+        console.log("Using Object.keys():");
+        var keys = Object.keys(person);
+        console.log("Keys:", keys);
+
+        console.log("\nUsing Object.values():");
+        var values = Object.values(person);
+        console.log("Values:", values);
+
+        console.log("\nUsing Object.entries():");
+        var entries = Object.entries(person);
+        console.log("Entries (key-value pairs):", entries);
+
+        // Iterating through entries
+        console.log("Iterating through entries:");
+        entries.forEach(([key, value]) => {
+            console.log(`${key}: ${value}`);
+        });
+
+        // 4. Merging two objects
+        var additionalInfo = {
+            gender: "Male",
+            profession: "UI Developer"
+        };
+
+        // Using Object.assign()
+        var mergedWithAssign = Object.assign({}, person, additionalInfo);
+        console.log("\nMerged using Object.assign():", mergedWithAssign);
+
+        // Using spread operator
+        var mergedWithSpread = { ...person, ...additionalInfo };
+        console.log("Merged using spread operator:", mergedWithSpread);
+    </script>
+</body>
+
+</html>

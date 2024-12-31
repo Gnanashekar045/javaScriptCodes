@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessing and Modifying Object Properties</title>
+</head>
+
+<body>
+    <script>
+        // Object example
+        var person = {
+            firstName: "Gnana",
+            lastName: "Shekar",
+            age: 30
+        };
+
+        // 1. Accessing properties of an object
+        //console.log("Accessing Properties:");
+        // Using dot notation
+        //console.log("First Name (dot notation):", person.firstName);
+        // Using bracket notation
+        //console.log("Last Name (bracket notation):", person["lastName"]);
+
+        // 2. Adding properties to an object
+        //console.log("\nAdding Properties:");
+        // Using dot notation
+        person.gender = "Male";
+        //console.log("After adding gender (dot notation):", person);
+
+        //Using bracket notation (with a dynamic key)
+        var dynamicKey = "city";
+        person[dynamicKey] = "Bangalore";
+        console.log("After adding city (bracket notation):", person);
+
+        // 3. Removing properties from an object
+        //console.log("\nRemoving Properties:");
+        // Using delete
+        delete person.age;
+        console.log("After removing age:", person);
+
+        // 4. Difference between dot and bracket notation
+        //console.log("\nDifference Between Dot and Bracket Notation:");
+        // Dot notation (valid identifier required)
+        //console.log("Access using dot notation:", person.firstName); // Works fine
+
+        // Bracket notation (can use special characters or dynamic keys)
+        //var specialKey = "phone-number";
+        //person[specialKey] = "123-456-7890";
+        //console.log("Added special character key (bracket notation):", person);
+        //console.log("Access special key (bracket notation):", person["phone-number"]);
+    </script>
+</body>
+
+</html>

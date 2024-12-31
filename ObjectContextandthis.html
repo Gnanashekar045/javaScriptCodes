@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value of this and Binding it</title>
+</head>
+
+<body>
+    <script>
+        var person = {
+            name: "Gnana",
+            greet: function () {
+                console.log("Inside greet method, this refers to:");
+                console.log(this);
+                console.log(`Hello, ${this.name}!`);
+            }
+        };
+
+        person.greet();
+
+        var greetMethod = person.greet;
+        greetMethod();
+
+        var boundGreet = greetMethod.bind(person);
+        boundGreet();
+
+        greetMethod.call(person); 
+        greetMethod.apply(person);
+
+        var personWithArrowFunction = {
+            name: "Shekar",
+            greet: () => {
+                console.log(this);
+            }
+        };
+        personWithArrowFunction.greet();
+    </script>
+</body>
+
+</html>

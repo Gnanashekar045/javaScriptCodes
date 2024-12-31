@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects vs Maps & Object Freezing/Sealing</title>
+</head>
+
+<body>
+    <script>
+        var person = {
+            name: "Gnana",
+            age: 30
+        };
+
+        var personMap = new Map();
+        personMap.set("name", "Gnana");
+        personMap.set("age", 30);
+        personMap.set(42, "The answer");
+
+        console.log("Object:", person);
+        console.log("Map:", personMap);
+
+        console.log(person.name);
+        console.log(personMap.get("name"));
+        console.log(personMap.get(42));
+
+        var obj = { prop: 42 };
+        Object.freeze(obj);
+        console.log(obj);
+        obj.prop = 100; 
+        obj.newProp = "New Value";
+        console.log(obj);
+
+        var sealedObj = { name: "Sealed Object" };
+        Object.seal(sealedObj); 
+        console.log(sealedObj);
+
+        sealedObj.name = "Modified Name";
+        console.log(sealedObj);
+
+        delete sealedObj.name;
+        console.log(sealedObj);
+
+        sealedObj.newProp = "New Value"; 
+        console.log(sealedObj);
+    </script>
+</body>
+
+</html>
