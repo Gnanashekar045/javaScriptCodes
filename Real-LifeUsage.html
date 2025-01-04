@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects in JavaScript and APIs</title>
+</head>
+
+<body>
+    <script>
+        var car = {
+            make: "Toyota",
+            model: "Corolla",
+            year: 2020,
+            startEngine: function () {
+                console.log(`${this.make} ${this.model}`);
+            }
+        };
+        console.log(car);
+        car.startEngine();
+
+        var user = {
+            id: 101,
+            name: "Gnanashekar",
+            email: "gnana@example.com",
+            isAdmin: true
+        };
+        console.log(user);
+
+        var operations = {
+            add: (a, b) => a + b,
+            subtract: (a, b) => a - b
+        };
+        console.log(operations.add(5, 3));
+        console.log(operations.subtract(5, 3));
+
+        var apiRequest = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username: "Gnana", password: "securePass123" })
+        };
+        console.log(apiRequest);
+
+        var apiResponse = {
+            status: 200,
+            message: "Login successful",
+            data: {
+                userId: 101,
+                name: "Gnanashekar"
+            }
+        };
+        console.log(apiResponse);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iterating Over Object Properties</title>
+</head>
+
+<body>
+    <script>
+        var person = {
+            firstName: "Gnana",
+            lastName: "Shekar",
+            age: 30,
+            city: "Bangalore"
+        };
+        
+        var parentObject = {
+            country: "India"
+        };
+
+        Object.setPrototypeOf(person, parentObject);
+
+        
+
+        for (var key in person) {
+            console.log(`${key}: ${person[key]}`);
+        }
+
+
+        var keys = Object.keys(person);
+        keys.forEach(key => {
+            console.log(`${key}: ${person[key]}`);
+        });
+
+        for (var key in person) {
+            console.log(key); 
+        }
+
+        console.log(Object.keys(person)); 
+
+        Object.values(person).forEach(value => {
+            console.log(value);
+        });
+
+        Object.entries(person).forEach(([key, value]) => {
+            console.log(`${key}: ${value}`);
+        });
+    </script>
+</body>
+
+</html>

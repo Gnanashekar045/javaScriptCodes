@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Assignment and Cloning</title>
+</head>
+
+<body>
+    <script>
+        var original = { name: "Gnana", age: 30 };
+        var referenceCopy = original;
+        referenceCopy.age = 35; 
+
+        console.log(original);
+        console.log(referenceCopy);
+
+        var clonedObject1 = Object.assign({}, original);
+        clonedObject1.name = "Shekar";
+        console.log(clonedObject1);
+        console.log(original);
+
+        
+        var clonedObject2 = { ...original };
+        clonedObject2.age = 40;
+        console.log(clonedObject2);
+        console.log(original);
+
+        var nestedObject = { name: "Gnana", address: { city: "Bangalore" } };
+
+        var shallowCopy = { ...nestedObject };
+        shallowCopy.address.city = "Chittoor"; 
+        console.log(shallowCopy);
+        console.log(nestedObject);
+
+        
+        var deepCopy = JSON.parse(JSON.stringify(nestedObject));
+        deepCopy.address.city = "Mumbai"; 
+        console.log(deepCopy);
+        console.log(nestedObject);
+    </script>
+</body>
+
+</html>

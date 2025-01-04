@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Methods and Merging</title>
+</head>
+
+<body>
+    <script>
+        var person = {
+            firstName: "Gnana",
+            lastName: "Shekar",
+            age: 30,
+            city: "Bangalore"
+        };
+
+        var keys = Object.keys(person);
+        console.log("Keys:", keys);
+
+        var values = Object.values(person);
+        console.log("Values:", values);
+
+        var entries = Object.entries(person);
+        console.log("Entries (key-value pairs):", entries);
+
+        entries.forEach(([key, value]) => {
+            console.log(`${key}: ${value}`);
+        });
+
+        var additionalInfo = {
+            gender: "Male",
+            profession: "UI Developer"
+        };
+
+        var mergedWithAssign = Object.assign({}, person, additionalInfo);
+        console.log(mergedWithAssign);
+
+        var mergedWithSpread = { ...person, ...additionalInfo };
+        console.log(mergedWithSpread);
+    </script>
+</body>
+
+</html>
