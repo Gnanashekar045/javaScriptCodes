@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media Post Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .post {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    textarea, input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Social Media Post Editor</h1>
+  <div id="postContainer"></div>
+  <script>
+    class Post {
+      constructor(content) {
+        this.content = content;
+        this.likes = 0;
+        this.comments = [];
+      }
+
+      render() {
+        document.getElementById("postContainer").innerHTML = `
+          <div class="post">
+            <textarea>${this.content}</textarea>
+            <button onclick="post.like()">Like (${this.likes})</button>
+            <input id="commentInput" placeholder="Add a comment" />
+            <button onclick="post.addComment()">Add Comment</button>
+            <div>
+              <strong>Comments:</strong>
+              ${this.comments.map((c, i) => `<p>${i + 1}. ${c}</p>`).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      like() {
+        this.likes++;
+        this.render();
+      }
+
+      addComment() {
+        const input = document.getElementById("commentInput");
+        if (input.value) {
+          this.comments.push(input.value);
+          input.value = "";
+          this.render();
+        }
+      }
+    }
+
+    const post = new Post("Welcome to my blog!");
+    post.render();
+  </script>
+</body>
+</html>

@@ -145,12 +145,8 @@
       function handleproduct() {
         const productId = document.getElementById("productId").value;
         const productName = document.getElementById("productName").value;
-        const productPrice = parseFloat(
-          document.getElementById("ProductPrice").value
-        );
-        const ProductQuantity = parseInt(
-          document.getElementById("ProductQuantity").value
-        );
+        const productPrice = parseFloat(document.getElementById("ProductPrice").value);
+        const ProductQuantity = parseInt(document.getElementById("ProductQuantity").value);
 
         if (productId && productName && productPrice && ProductQuantity) {
           cart.addProduct(productId, productName, productPrice, ProductQuantity);
@@ -164,9 +160,7 @@
         }
       }
 
-      document
-        .getElementById("addProductbtn")
-        .addEventListener("click", handleproduct);
+      document.getElementById("addProductbtn").addEventListener("click", handleproduct);
     </script>
   </body>
 </html>
