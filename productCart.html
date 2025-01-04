@@ -44,6 +44,25 @@
           }
         }
       }
+
+      removeProduct(productId) {
+        if(this.cart[productId]) {
+            delete this.cart[productId];
+        }
+      }
+
+      calculateTotal() {
+        let total = 0;
+        Object.keys(this.cart).forEach(priductid => {
+            const product = this.cart[priductid];
+            total += product.price * product.quantity
+        });
+        return total
+      }
+
+      
+
+
     </script>
   </body>
 </html>
