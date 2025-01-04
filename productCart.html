@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="productForm">
+        <input type="text" id="productId" placeholder="Product Id" /><br />
+        <input type="text" id="productName" placeholder="Product Name" /><br />
+        <input
+          type="number"
+          id="ProductPrice"
+          placeholder="Product price"
+        /><br />
+        <input
+          type="number"
+          id="ProductQuantity"
+          placeholder="Product Quantity"
+        /><br />
+        <button id="addProductbtn">Add Product</button>
+      </div>
+    </div>
+
+    <div class="cart">
+      <h1>cart detailes</h1>
+      <div id="cartItems"></div>
+      <p class="total" id="totalPrice">Total: rs0</p>
+    </div>
+
+    <script>
+      class shoppingCart {
+        constructor() {
+          this.cart = {};
+        }
+
+        addProduct(productId, name, price, quantity) {
+          if (this.cart[productId]) {
+            this.cart[productId].quantity += quantity;
+          } else {
+            this.cart[productId] = { name, price, quantity };
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
