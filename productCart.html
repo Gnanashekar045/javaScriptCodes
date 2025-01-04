@@ -3,29 +3,87 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Shopping Cart</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 300px;
+      }
+      .container input {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .container button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .cart {
+        margin-top: 20px;
+        width: 80%;
+        max-width: 600px;
+      }
+      .cart h1 {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+      .cart-item button {
+        padding: 5px 10px;
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .total {
+        text-align: right;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
+      <h2>Add Product</h2>
       <div class="productForm">
-        <input type="text" id="productId" placeholder="Product Id" /><br />
+        <input type="text" id="productId" placeholder="Product ID" /><br />
         <input type="text" id="productName" placeholder="Product Name" /><br />
-        <input
-          type="number"
-          id="ProductPrice"
-          placeholder="Product price"
-        /><br />
-        <input
-          type="number"
-          id="ProductQuantity"
-          placeholder="Product Quantity"
-        /><br />
+        <input type="number" id="ProductPrice" placeholder="Product Price" /><br />
+        <input type="number" id="ProductQuantity" placeholder="Product Quantity" /><br />
         <button id="addProductbtn">Add Product</button>
       </div>
     </div>
 
     <div class="cart">
-      <h1>cart detailes</h1>
+      <h1>Cart Details</h1>
       <div id="cartItems"></div>
       <p class="total" id="totalPrice">Total: rs0</p>
     </div>
@@ -42,27 +100,73 @@
           } else {
             this.cart[productId] = { name, price, quantity };
           }
+          this.displayCart();
         }
-      }
 
-      removeProduct(productId) {
-        if(this.cart[productId]) {
+        removeProduct(productId) {
+          if (this.cart[productId]) {
             delete this.cart[productId];
+          }
+          this.displayCart();
+        }
+
+        calculateTotal() {
+          let total = 0;
+          Object.keys(this.cart).forEach((productId) => {
+            const product = this.cart[productId];
+            total += product.price * product.quantity;
+          });
+          return total;
+        }
+
+        displayCart() {
+          const cartItemsContainer = document.getElementById("cartItems");
+          cartItemsContainer.innerHTML = "";
+
+          Object.entries(this.cart).forEach(([id, product]) => {
+            const cartItem = document.createElement("div");
+            cartItem.className = "cart-item";
+            cartItem.innerHTML = `
+              <p>ID: ${id}</p>
+              <p>${product.name}</p>
+              <p>Price: ${product.price}</p>
+              <p>Quantity: ${product.quantity}</p>
+              <button onclick="cart.removeProduct('${id}')">Remove</button>
+            `;
+            cartItemsContainer.appendChild(cartItem);
+          });
+
+          document.getElementById("totalPrice").textContent = `Total: rs${this.calculateTotal()}`;
         }
       }
 
-      calculateTotal() {
-        let total = 0;
-        Object.keys(this.cart).forEach(priductid => {
-            const product = this.cart[priductid];
-            total += product.price * product.quantity
-        });
-        return total
+      const cart = new shoppingCart();
+
+      function handleproduct() {
+        const productId = document.getElementById("productId").value;
+        const productName = document.getElementById("productName").value;
+        const productPrice = parseFloat(
+          document.getElementById("ProductPrice").value
+        );
+        const ProductQuantity = parseInt(
+          document.getElementById("ProductQuantity").value
+        );
+
+        if (productId && productName && productPrice && ProductQuantity) {
+          cart.addProduct(productId, productName, productPrice, ProductQuantity);
+
+          document.getElementById("productId").value = "";
+          document.getElementById("productName").value = "";
+          document.getElementById("ProductPrice").value = "";
+          document.getElementById("ProductQuantity").value = "";
+        } else {
+          alert(`Please fill out all fields.`);
+        }
       }
 
-      
-
-
+      document
+        .getElementById("addProductbtn")
+        .addEventListener("click", handleproduct);
     </script>
   </body>
 </html>
