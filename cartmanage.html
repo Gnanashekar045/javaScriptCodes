@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="cartContainer">
+        <h2>products</h2>
+        <div class="productForm">
+            <input type="text" id="productId" placeholder="Enter product id"><br> <br>
+            <input type="text" id="productName" placeholder="product Name"><br> <br>
+            <input type="number" id="productPrice" placeholder="product Price"><br> <br>
+            <input type="number" id="productQuntity" placeholder="product Quantity"><br> <br>
+            <button id="addProducts">Add Products</button>
+        </div>
+    </div>
+
+    <div class="cart">
+        <h1>cartDetails</h1>
+        <div class="cartItems"></div>
+        <p class="total" id="totalprice">Total: rs0</p>
+    </div>
+
+    <script>
+        class shoppingCart {
+            constructor() {
+                this.cart = {};
+            }
+
+            addproducts (productId, name, price, quantity) {
+                if (this.cart[productId]) {
+                    this.cart[productId].quantity += quantity;
+                } else {
+                    this.cart[productId] = {name, price, quantity}
+                }
+            }
+
+            removProduct () {
+                if (this.cart[productId]) {
+                    delete this.cart[productId];
+                }
+            }
+
+            calculateTotal () {
+                let total = 0;
+                Object.keys(this.cart).forEach(productId => {
+                    const product = this.cart[productId];
+                    total += product.price * product.quantity
+                });
+                return total
+            }
+
+            displayCart () {
+                const cartItemContainner = document.getElementById("cartItems").innerHTML = "";
+                Object.entries(this.cart).forEach(([id, product])=>{
+                    const cartItem = document.createElement("div");
+                    cartItem.className = "car-item";
+                    cartItem.innerHTML = `
+                    <p>ID: ${id}</p>
+                    <p>${product.name}</p>
+                    <p>Price ${product.price}</p>
+                    <p>Quantity ${product.quantity}</p>
+                    <button onclick="cart.removProduct('{id}')">Remove</button>
+                    `;
+                    cartItemContainner.appendChild(cartItem);
+                });
+                document.getElementById("totalprice").textContent = `Total: re${this.calculateTotal()}`
+            }
+        }
+
+        const cart = new shoppingCart();
+    </script>
+</body>
+</html>
