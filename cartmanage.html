@@ -78,7 +78,9 @@
             const productPrice = parseFloat(document.getElementById("productPrice").value);
             const productQuantity = parseInt(document.getElementById("productQuntity").value);
 
-            if (productId && productName && productPrice &&)
+            if (productId && productName && productPrice && productQuantity) {
+                cart.addproducts(productId, productName, productPrice, productQuantity)
+            }
         }
     </script>
 </body>
