@@ -149,6 +149,7 @@
 
         cartItems.forEach(function(read) {
           var productElement = document.createElement("div");
+          productElement.classList.add("cart-item");
           productElement.innerHTML = `
           <p>ID: ${read.productId}</p>
           <p>NAme: ${read.productName}</p>
