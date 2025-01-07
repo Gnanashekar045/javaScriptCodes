@@ -78,7 +78,7 @@
         <input type="text" id="productName" placeholder="Product Name" /><br />
         <input type="number" id="ProductPrice" placeholder="Product Price" /><br />
         <input type="number" id="ProductQuantity" placeholder="Product Quantity" /><br />
-        <button id="addProductbtn" onclick="handleproduct()">Add Product</button>
+        <button id="addProductbtn" onclick="productHandle()">Add Product</button>
       </div>
     </div>
 
@@ -89,78 +89,78 @@
     </div>
 
     <script>
-      class shoppingCart {
-        constructor() {
-          this.cart = {};
+      var cartItems = []
+
+      function productHandle() {
+        var items = {
+          productId: "",
+          productName: "",
+          ProductPrice: "",
+          ProductQuantity: "",
         }
-
-        addProduct(productId, name, price, quantity) {
-          if (this.cart[productId]) {
-            this.cart[productId].quantity += quantity;
-          } else {
-            this.cart[productId] = { name, price, quantity };
-          }
-          this.displayCart();
+        for(a in items) {
+          items[a] = document.getElementById(a).value
         }
+        addProducts(items)
+        clearProducts()
+        readUser()
+      }
 
-        removeProduct(productId) {
-          if (this.cart[productId]) {
-            delete this.cart[productId];
-          }
-          this.displayCart();
+      function clearProducts() {
+        var items = {
+          productId: "",
+          productName: "",
+          ProductPrice: "",
+          ProductQuantity: "",
         }
-
-        calculateTotal() {
-          let total = 0;
-          Object.keys(this.cart).forEach((productId) => {
-            const product = this.cart[productId];
-            total += product.price * product.quantity;
-          });
-          return total;
-        }
-
-        displayCart() {
-          const cartItemsContainer = document.getElementById("cartItems");
-          cartItemsContainer.innerHTML = "";
-
-          Object.entries(this.cart).forEach(([id, product]) => {
-            const cartItem = document.createElement("div");
-            cartItem.className = "cart-item";
-            cartItem.innerHTML = `
-              <p>ID: ${id}</p>
-              <p>${product.name}</p>
-              <p>Price: ${product.price}</p>
-              <p>Quantity: ${product.quantity}</p>
-              <button onclick="cart.removeProduct('${id}')">Remove</button>
-            `;
-            cartItemsContainer.appendChild(cartItem);
-          });
-
-          document.getElementById("totalPrice").textContent = `Total: rs${this.calculateTotal()}`;
+        for(a in items) {
+          document.getElementById(a).value = "";
+          
         }
       }
 
-      const cart = new shoppingCart();
+      function addProducts(item) {
+        let isProductFind = false;
 
-      function handleproduct() {
-        const productId = document.getElementById("productId").value;
-        const productName = document.getElementById("productName").value;
-        const productPrice = parseFloat(document.getElementById("ProductPrice").value);
-        const ProductQuantity = parseInt(document.getElementById("ProductQuantity").value);
-
-        if (productId && productName && productPrice && ProductQuantity) {
-          cart.addProduct(productId, productName, productPrice, ProductQuantity);
-
-          document.getElementById("productId").value = "";
-          document.getElementById("productName").value = "";
-          document.getElementById("ProductPrice").value = "";
-          document.getElementById("ProductQuantity").value = "";
-        } else {
-          alert(`Please fill out all fields.`);
+        cartItems.forEach(function(cartItem) {
+          if(cartItem.productId === item.productId) {
+            cartItem.ProductQuantity = parse(cartItem.ProductQuantity) + parse(item.ProductQuantity);
+            isProductFind = true
+          }
+        })
+        if(!isProductFind) {
+          cartItems.push(item)
         }
       }
 
-      document.getElementById("addProductbtn").addEventListener("click", handleproduct);
+      function removeCart(productId) {
+        cartItems.forEach(function(prodvalue, index) {
+          if(prodvalue.productId === productId) {
+            cartItems.splice(index, 1)
+          }
+        })
+        readUser()
+      }
+
+      function readUser() {
+        var cartItemContainner = document.getElementById("cartItems");
+        cartItemContainner.innerHTML = "";
+        var total = 0;
+
+        cartItems.forEach(function(read) {
+          var productElement = document.createElement("div");
+          productElement.innerHTML = `
+          <p>ID: ${read.productId}</p>
+          <p>NAme: ${read.productName}</p>
+          <p>Price: ${read.ProductPrice}</p>
+          <p>Quantity: ${read.ProductQuantity}</p>
+          <button onclick="removeCart('${read.productId}')">Remove</button>
+          `
+          cartItemContainner.appendChild(productElement);
+          total += parseFloat(read.ProductPrice) * parseInt(read.ProductQuantity)
+        })
+        document.getElementById("totalPrice").textContent = `Total: rs${total}`
+      }
     </script>
   </body>
 </html>
