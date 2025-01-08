@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Management</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      .container {
+        margin: 20px auto;
+        padding: 20px;
+        max-width: 400px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+
+      input,
+      select,
+      button {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        text-align: left;
+        background-color: #fff;
+        padding: 10px;
+        margin-bottom: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>User Management</h1>
+      <form id="userForm">
+        <input type="text" id="name" placeholder="Name" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <select id="role">
+          <option value="Subscriber">Subscriber</option>
+          <option value="Admin">Admin</option>
+        </select>
+        <button type="button" onclick="inputHandle()">Add User</button>
+      </form>
+      <ul id="userList"></ul>
+    </div>
+
+    <script>
+      let users = [];
+
+      function inputHandle() {
+        var user = {
+          name: "",
+          email: "",
+          role: "",
+        };
+        for (a in user) {
+          user[a] = document.getElementById(a).value;
+        }
+        users.push(user);
+        renderUsers();
+        clearUser();
+      }
+
+      function clearUser() {
+        var user = {
+          name: "",
+          email: "",
+          role: "",
+        };
+        for (a in user) {
+          document.getElementById(a).value = "";
+        }
+      }
+
+      function renderUsers() {
+        const userList = document.getElementById("userList");
+        userList.innerHTML = ""; // Clear the existing list before rendering
+
+        // Loop through the users array and display each user
+        users.forEach((user) => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `<strong>${user.name}</strong><br> ${user.email}<br> ${user.role}`;
+          userList.appendChild(listItem); // Append the new list item to the display
+        });
+      }
+
+      //     document.getElementById("userForm").addEventListener("submit", function (e) {
+      //   e.preventDefault(); // Prevent the form from submitting and page refresh
+
+      //   // Get form values
+      //   const name = document.getElementById("name").value.trim();
+      //   const email = document.getElementById("email").value.trim();
+      //   const role = document.getElementById("role").value;
+
+      //   // Check if name and email are not empty
+      //   if (name && email) {
+      //     // Step 3: Add user to array
+      //     const newUser = { name, email, role };
+      //     users.push(newUser); // Add the new user to the users array
+
+      //     renderUsers()// Step 4: Render user list
+      //     // Update the displayed list of users
+
+      //     // Clear form after submission
+      //     e.target.reset();
+      //   }
+      // });
+
+      // let users = [];
+
+      // function renderUsers() {
+      //   const userList = document.getElementById("userList");
+      //   userList.innerHTML = "";
+
+      //   users.forEach(user => {
+      //     const listItem = document.createElement("li");
+      //     listItem.innerHTML = `<strong>${user.name}</strong><br> ${user.email}<br> ${user.role}`;
+      //     userList.appendChild(listItem);
+      //   });
+      // }
+
+      // document.getElementById("userForm").addEventListener("submit", function (e) {
+      //   e.preventDefault(); // Prevents default form submission behavior
+
+      //   const name = document.getElementById("name").value.trim();
+      //   const email = document.getElementById("email").value.trim();
+      //   const role = document.getElementById("role").value;
+
+      //   if (name && email) { // Ensure name and email are not empty
+      //     const newUser = { name, email, role }; // Create a new user object
+      //     users.push(newUser); // Add the new user to the users array
+      //     renderUsers(); // Update the user list display
+      //     e.target.reset(); // Clear the form fields
+      //   }
+      // });
+    </script>
+  </body>
+</html>

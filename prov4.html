@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .book-list {
+      margin-top: 20px;
+    }
+    .book-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .book-list li {
+      margin: 10px 0;
+    }
+    .book-list button {
+      width: auto;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <h1>Library Management System</h1>
+
+    <!-- Add Book Form -->
+    <h3>Add Book</h3>
+    <input type="text" id="title" placeholder="Book Title" required>
+    <input type="text" id="author" placeholder="Book Author" required>
+    <button onclick="addBook()">Add Book</button>
+
+    <!-- Book List -->
+    <div class="book-list">
+      <h3>Books in Library</h3>
+      <ul id="bookList"></ul>
+    </div>
+  </div>
+
+  <script>
+    let books = [];
+
+    // Function to add a book
+    function addBook() {
+      const title = document.getElementById("title").value.trim();
+      const author = document.getElementById("author").value.trim();
+      
+      if (title && author) {
+        const newBook = { title, author, isAvailable: true };
+        books.push(newBook);
+        renderBooks();
+        clearInputs();
+      } else {
+        alert("Please fill in both fields.");
+      }
+    }
+
+    // Function to lend a book
+    function lendBook(index) {
+      if (books[index].isAvailable) {
+        books[index].isAvailable = false;
+        renderBooks();
+      } else {
+        alert("This book is already lent out.");
+      }
+    }
+
+    // Function to return a book
+    function returnBook(index) {
+      if (!books[index].isAvailable) {
+        books[index].isAvailable = true;
+        renderBooks();
+      } else {
+        alert("This book is already available.");
+      }
+    }
+
+    // Function to render the list of books
+    function renderBooks() {
+      const bookList = document.getElementById("bookList");
+      bookList.innerHTML = ""; // Clear previous list
+
+      books.forEach((book, index) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `${book.title} by ${book.author} - ${book.isAvailable ? 'Available' : 'Lent out'}
+          <button onclick="lendBook(${index})" ${!book.isAvailable ? 'disabled' : ''}>Lend</button>
+          <button onclick="returnBook(${index})" ${book.isAvailable ? 'disabled' : ''}>Return</button>`;
+        bookList.appendChild(listItem);
+      });
+    }
+
+    // Function to clear the input fields
+    function clearInputs() {
+      document.getElementById("title").value = "";
+      document.getElementById("author").value = "";
+    }
+  </script>
+
+</body>
+</html>

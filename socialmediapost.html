@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media Post Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .post {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    textarea,
+    input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Social Media Post Editor</h1>
+  <div id="postContainer"></div>
+
+  <script>
+    let postContent = "Welcome to my blog!";
+    let postLikes = 0;
+    let postComments = [];
+
+    function renderPost() {
+      document.getElementById("postContainer").innerHTML = `
+        <div class="post">
+          <textarea>${postContent}</textarea>
+          <button onclick="likePost()">Like ${postLikes}</button>
+          <input type="text" id="commentInput" placeholder="Add a comment">
+          <button onclick="addComment()">Add Comment</button>
+          <div>
+            <strong>Comments:</strong>
+            ${postComments.map((c, i) => `<p>${i + 1}. ${c}</p>`).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function likePost() {
+      postLikes++;
+      renderPost();
+    }
+
+    function addComment() {
+      const input = document.getElementById("commentInput");
+      if (input.value) {
+        postComments.push(input.value);
+        input.value = "";
+        renderPost();
+      }
+    }
+
+    renderPost();
+  </script>
+</body>
+</html>

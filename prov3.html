@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .book-list {
+      margin-top: 20px;
+    }
+    .book-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .book-list li {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Library Management System</h1>
+
+    <!-- Form to add a book -->
+    <h3>Add Book</h3>
+    <form id="addBookForm">
+      <input type="text" id="title" placeholder="Book Title" required>
+      <input type="text" id="author" placeholder="Book Author" required>
+      <button type="submit">Add Book</button>
+    </form>
+
+    <!-- Form to lend a book -->
+    <h3>Lend Book</h3>
+    <form id="lendBookForm">
+      <input type="text" id="lendTitle" placeholder="Book Title to Lend" required>
+      <button type="submit">Lend Book</button>
+    </form>
+
+    <!-- Form to return a book -->
+    <h3>Return Book</h3>
+    <form id="returnBookForm">
+      <input type="text" id="returnTitle" placeholder="Book Title to Return" required>
+      <button type="submit">Return Book</button>
+    </form>
+
+    <!-- Book List -->
+    <div class="book-list">
+      <h3>Books in the Library</h3>
+      <ul id="bookList"></ul>
+    </div>
+  </div>
+
+  <script>
+    let books = [];
+
+    // Function to add a book to the library
+    function addBook(title, author) {
+      const book = {
+        title,
+        author,
+        isAvailable: true
+      };
+      books.push(book);
+      renderBooks();
+    }
+
+    // Function to lend a book
+    function lendBook(title) {
+      const book = books.find(b => b.title === title && b.isAvailable);
+      if (book) {
+        book.isAvailable = false;
+        alert(`The book "${title}" has been lent out.`);
+      } else {
+        alert(`Sorry, "${title}" is currently unavailable.`);
+      }
+      renderBooks();
+    }
+
+    // Function to return a book
+    function returnBook(title) {
+      const book = books.find(b => b.title === title);
+      if (book && !book.isAvailable) {
+        book.isAvailable = true;
+        alert(`The book "${title}" has been returned.`);
+      } else {
+        alert(`The book "${title}" is not in our records or it's already available.`);
+      }
+      renderBooks();
+    }
+
+    // Function to render the list of books
+    function renderBooks() {
+      const bookList = document.getElementById("bookList");
+      bookList.innerHTML = '';
+      books.forEach(book => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `${book.title} by ${book.author} - ${book.isAvailable ? 'Available' : 'Lent out'}`;
+        bookList.appendChild(listItem);
+      });
+    }
+
+    // Handle form submissions for adding books
+    document.getElementById("addBookForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const title = document.getElementById("title").value.trim();
+      const author = document.getElementById("author").value.trim();
+      if (title && author) {
+        addBook(title, author);
+        document.getElementById("addBookForm").reset();
+      }
+    });
+
+    // Handle form submissions for lending books
+    document.getElementById("lendBookForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const title = document.getElementById("lendTitle").value.trim();
+      if (title) {
+        lendBook(title);
+        document.getElementById("lendBookForm").reset();
+      }
+    });
+
+    // Handle form submissions for returning books
+    document.getElementById("returnBookForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const title = document.getElementById("returnTitle").value.trim();
+      if (title) {
+        returnBook(title);
+        document.getElementById("returnBookForm").reset();
+      }
+    });
+  </script>
+
+</body>
+</html>
